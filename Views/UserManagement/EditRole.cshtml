@@ -1,0 +1,31 @@
+@model Microsoft.AspNetCore.Identity.IdentityUser
+@{
+    ViewData["Title"] = "Edit User Role";
+    var allRoles = ViewBag.AllRoles as List<string>;
+    var userRoles = ViewBag.UserRoles as IList<string>;
+}
+<div class="page-card">
+    <h2 class="page-title">Edit Role for @Model.Email</h2>
+    <form asp-action="EditRole" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-group mb-4">
+            <label class="form-label">Role:</label>
+            <select name="role" class="form-control">
+                <option value="">-- Select Role --</option>
+                @foreach (var role in allRoles)
+                {
+                    if (userRoles.Contains(role))
+                    {
+                        <option value="@role" selected>@role</option>
+                    }
+                    else
+                    {
+                        <option value="@role">@role</option>
+                    }
+                }
+            </select>
+        </div>
+        <button class="nav-btn primary-btn" type="submit">Save</button>
+        <a class="nav-btn" asp-action="Index">Cancel</a>
+    </form>
+</div> 

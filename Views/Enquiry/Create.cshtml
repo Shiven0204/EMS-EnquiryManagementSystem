@@ -1,0 +1,82 @@
+@model EMSCore.Models.Enquiry
+@{
+    ViewData["Title"] = "Add New Enquiry";
+}
+<div class="page-card">
+    <h2 class="page-title">Add New Enquiry</h2>
+    @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Values.Any(v => v.Errors.Count > 0))
+    {
+        <div class="alert-danger validation-summary">
+            <strong>Please correct the errors below and try again.</strong>
+            <ul>
+            @foreach (var entry in ViewData.ModelState)
+            {
+                foreach (var error in entry.Value.Errors)
+                {
+                    <li>@(entry.Key): @error.ErrorMessage</li>
+                }
+            }
+            </ul>
+        </div>
+    }
+    <form asp-action="Create" method="post" novalidate>
+        @Html.AntiForgeryToken()
+        <div class="form-group mb-3">
+            <label class="form-label">Name:</label>
+            <input asp-for="StudentName" class="form-control" />
+            <span asp-validation-for="StudentName" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Contact:</label>
+            <input asp-for="Contact" class="form-control" />
+            <span asp-validation-for="Contact" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Email:</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Course:</label>
+            <input asp-for="Course" class="form-control" />
+            <span asp-validation-for="Course" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label class="form-label">Source:</label>
+            <select asp-for="Source" class="form-control">
+                <option value="">-- Select Source --</option>
+                <option>Walk-in</option>
+                <option>Phone</option>
+                <option>Web</option>
+                <option>Email</option>
+                <option>Whatsapp</option>
+            </select>
+            <span asp-validation-for="Source" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label class="form-label">Priority:</label>
+            <select asp-for="Priority" class="form-control">
+                <option value="">-- Select Priority --</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+            </select>
+            <span asp-validation-for="Priority" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label class="form-label">Status:</label>
+            <select asp-for="Status" class="form-control">
+                <option value="">-- Select Status --</option>
+                <option>New</option>
+                <option>In Progress</option>
+                <option>Converted</option>
+                <option>Dropped</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <button class="nav-btn primary-btn" type="submit">Add Enquiry</button>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

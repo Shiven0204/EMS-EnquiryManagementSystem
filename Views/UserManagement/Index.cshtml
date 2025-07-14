@@ -1,0 +1,48 @@
+@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = "User Management";
+}
+<div class="page-card">
+    <h2 class="page-title">User Management</h2>
+    <a class="nav-btn primary-btn mb-3" href="/Identity/Account/Register" target="_blank">+ Register New User</a>
+    @if (TempData["Message"] != null) {
+        <div class="alert-success">@TempData["Message"]</div>
+    }
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            var isLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now;
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    @if (isLocked) {
+                        <span style="color:#a94442;font-weight:600;">Inactive</span>
+                    } else {
+                        <span style="color:#4c3a7c;font-weight:600;">Active</span>
+                    }
+                </td>
+                <td>
+                    <a class="table-link me-2" asp-action="EditRole" asp-route-id="@user.Id">Edit Role</a>
+                    <form asp-action="ResetPassword" asp-route-id="@user.Id" method="post" style="display:inline;">
+                        <button type="submit" class="table-link btn btn-link p-0 m-0" onclick="return confirm('Reset password for @user.Email?')">Reset Password</button>
+                    </form>
+                    <form asp-action="ToggleLockout" asp-route-id="@user.Id" method="post" style="display:inline;">
+                        <button type="submit" class="table-link btn btn-link p-0 m-0" onclick="return confirm('Are you sure you want to @(isLocked ? "activate" : "deactivate") this account?')">@(isLocked ? "Activate" : "Deactivate")</button>
+                    </form>
+                    <form asp-action="Delete" asp-route-id="@user.Id" method="post" style="display:inline;">
+                        <button type="submit" class="table-link btn btn-link p-0 m-0" onclick="return confirm('Delete @user.Email? This cannot be undone!')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div> 

@@ -1,0 +1,23 @@
+@model IEnumerable<EMSCore.Models.FollowUp>
+@{
+    ViewData["Title"] = "Follow-Ups";
+    int enquiryId = ViewBag.EnquiryId;
+}
+<h2>Follow-Ups</h2>
+<a class="nav-btn" href="/FollowUp/Add?enquiryId=@enquiryId">Add Follow-Up</a>
+<table class="followup-table">
+    <tr>
+        <th>Date</th>
+        <th>Staff</th>
+        <th>Note</th>
+        <th>Reminder Sent</th>
+    </tr>
+    @foreach (var f in Model) {
+        <tr>
+            <td>@f.Date.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@f.StaffId</td>
+            <td>@f.Note</td>
+            <td>@(f.ReminderSent ? "Yes" : "No")</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,54 @@
+@model IEnumerable<EMSCore.Models.Enquiry>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Enquiries";
+    var isStudent = User.IsInRole("Student");
+    var isAdmin = User.IsInRole("Admin");
+    var isStaff = User.IsInRole("Staff");
+    var userEmail = User.Identity.Name;
+}
+<div class="page-card">
+    <h2 class="page-title">Enquiries</h2>
+    <a class="nav-btn primary-btn mb-2" asp-controller="Enquiry" asp-action="Create">+ Add New Enquiry</a>
+    @if (TempData["Message"] != null) {
+        <div class="alert-success mb-3" style="margin-top:12px;max-width:400px;">@TempData["Message"]</div>
+    }
+    <div class="table-responsive">
+        <table class="enquiry-table styled-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Source</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var e in Model) {
+                <tr>
+                    <td>@e.Id</td>
+                    <td>@e.StudentName</td>
+                    <td>@e.Contact</td>
+                    <td>@e.Email</td>
+                    <td>@e.Course</td>
+                    <td>@e.Source</td>
+                    <td>@e.Status</td>
+                    <td>@e.Priority</td>
+                    <td>
+                        <a class="table-link" asp-controller="Enquiry" asp-action="Details" asp-route-id="@e.Id">View</a>
+                        @if ((isStudent && e.Email == userEmail) || isAdmin || isStaff) {
+                            <a class="table-link ms-2" asp-controller="Enquiry" asp-action="Edit" asp-route-id="@e.Id">Edit</a>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

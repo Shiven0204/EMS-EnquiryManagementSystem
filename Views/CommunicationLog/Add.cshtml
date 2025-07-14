@@ -1,0 +1,31 @@
+@model EMSCore.Models.CommunicationLog
+@{
+    ViewData["Title"] = "Add Communication Log";
+}
+<h2>Add Communication Log</h2>
+@if (ViewBag.Message != null) {
+    <div class="alert-success">@ViewBag.Message</div>
+}
+<form asp-action="Add" method="post">
+    <input type="hidden" asp-for="EnquiryId" />
+    <div class="form-group">
+        <label>Type:</label>
+        <input asp-for="Type" class="form-control" placeholder="Email, SMS, WhatsApp, Note, etc." />
+    </div>
+    <div class="form-group">
+        <label>Message:</label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Date & Time:</label>
+        <input asp-for="SentAt" class="form-control" type="datetime-local" />
+    </div>
+    <div class="form-group">
+        <label>Internal Note?</label>
+        <input asp-for="IsInternal" type="checkbox" />
+    </div>
+    <button class="nav-btn" type="submit">Add Log</button>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

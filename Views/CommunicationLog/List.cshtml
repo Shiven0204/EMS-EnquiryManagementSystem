@@ -1,0 +1,23 @@
+@model IEnumerable<EMSCore.Models.CommunicationLog>
+@{
+    ViewData["Title"] = "Communication Logs";
+    int enquiryId = ViewBag.EnquiryId;
+}
+<h2>Communication Logs</h2>
+<a class="nav-btn" href="/CommunicationLog/Add?enquiryId=@enquiryId">Add Communication Log</a>
+<table class="log-table">
+    <tr>
+        <th>Date/Time</th>
+        <th>Type</th>
+        <th>Message</th>
+        <th>Internal?</th>
+    </tr>
+    @foreach (var log in Model) {
+        <tr>
+            <td>@log.SentAt.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@log.Type</td>
+            <td>@log.Message</td>
+            <td>@(log.IsInternal ? "Yes" : "No")</td>
+        </tr>
+    }
+</table>

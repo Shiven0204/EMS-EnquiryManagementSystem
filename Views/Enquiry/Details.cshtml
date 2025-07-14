@@ -1,0 +1,18 @@
+@model EMSCore.Models.Enquiry
+@{
+    ViewData["Title"] = "Enquiry Details";
+}
+<h2>Enquiry Details</h2>
+<div class="enquiry-details">
+    <p><strong>ID:</strong> @Model.Id</p>
+    <p><strong>Name:</strong> @Model.StudentName</p>
+    <p><strong>Contact:</strong> @Model.Contact</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Course:</strong> @Model.Course</p>
+    <p><strong>Source:</strong> @Model.Source</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Priority:</strong> @Model.Priority</p>
+    <p><strong>Assigned Staff:</strong> @Model.AssignedStaffId</p>
+    <p><strong>Created At:</strong> @Model.CreatedAt</p>
+</div>
+<a class="nav-btn" href="/Enquiry">Back to List</a>

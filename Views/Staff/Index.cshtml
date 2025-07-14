@@ -1,0 +1,35 @@
+@model IEnumerable<EMSCore.Models.Staff>
+@{
+    ViewData["Title"] = "Staff Members";
+}
+<div class="page-card">
+    <h2 class="page-title">Staff Members</h2>
+    <a class="nav-btn primary-btn" asp-controller="Staff" asp-action="Create">+ Add New Staff</a>
+    @if (TempData["Message"] != null) {
+        <div class="alert-success">@TempData["Message"]</div>
+    }
+    <div class="table-responsive">
+        <table class="staff-table styled-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var s in Model) {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.Name</td>
+                    <td>@s.Email</td>
+                    <td>@s.Phone</td>
+                    <td><a class="table-link" asp-controller="Staff" asp-action="Details" asp-route-id="@s.Id">View</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

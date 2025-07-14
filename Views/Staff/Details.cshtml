@@ -1,0 +1,12 @@
+@model EMSCore.Models.Staff
+@{
+    ViewData["Title"] = "Staff Details";
+}
+<h2>Staff Details</h2>
+<div class="staff-details">
+    <p><strong>ID:</strong> @Model.Id</p>
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Phone:</strong> @Model.Phone</p>
+</div>
+<a class="nav-btn" href="/Staff">Back to List</a>
